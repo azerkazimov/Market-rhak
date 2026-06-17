@@ -1,12 +1,18 @@
 import { useQuery } from '@tanstack/react-query'
 import { getProducts } from '../services/product.api'
 import ProductsCard from './products-card'
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductsPage() {
+  const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
     queryKey: ['products'],
     queryFn: getProducts,
-  })
+  })  
+
+  const handleNavigate = (id) => {
+    navigate(`/products/${id}`);
+  }
 
   return (
     <section>
@@ -35,7 +41,7 @@ export default function ProductsPage() {
       {data && (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {data.map((product) => (
-            <ProductsCard key={product.id} product={product} />
+            <ProductsCard key={product.id} product={product} onClick={handleNavigate}/>
           ))}
         </div>
       )}

@@ -1,17 +1,22 @@
 import { Button } from "@/components/ui/button"
 import { useProductsStore } from "../store/products.store";
 
-export default function ProductsCard({ product }) {
+export default function ProductsCard({ product, onClick }) {
   const { title, price, category, image } = product
 
   const { addProduct } = useProductsStore();
 
-  const handleAddProduct = () => {
+  const handleOpenProduct =()=>{
+    onClick(product.id);
+  }
+
+  const handleAddProduct = (e) => {
+    e.stopPropagation();
     addProduct(product);
   }
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article onClick={handleOpenProduct} className="cursor-pointer group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div className="relative overflow-hidden bg-gray-50 p-6">
         <span className="absolute left-4 top-4 z-10 rounded-full bg-white/90 px-3 py-1 text-xs font-medium capitalize text-gray-600 shadow-sm backdrop-blur-sm">
           {category}
@@ -39,7 +44,7 @@ export default function ProductsCard({ product }) {
 
           <Button
             type="button"
-            className="w-full rounded-sm bg-gray-900 px-4 py-4.5 text-sm font-medium text-white transition-colors hover:bg-gray-700 sm:w-auto"
+            className="cursor-pointer w-full rounded-sm bg-gray-900 px-4 py-4.5 text-sm font-medium text-white transition-colors hover:bg-gray-700 sm:w-auto"
             onClick={handleAddProduct}
           >
             Add to Cart

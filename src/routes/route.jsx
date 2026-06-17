@@ -1,3 +1,4 @@
+import ProductPage from '@/pages/products/ui/products-page'
 import RootLayout from '../layout/root-layout'
 import AboutPage from '../pages/about/ui/about'
 import HomePage from '../pages/main/ui/home'
@@ -20,6 +21,10 @@ export const routes = [
         path: 'products',
         element: <ProductsPage />,
       },
+      {
+        path: 'products/:id',
+        element: <ProductPage />,
+      }
     ],
   },
 ]
